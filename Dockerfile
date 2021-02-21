@@ -27,6 +27,9 @@ RUN tar xzf 2021-01.tar.gz
 
 WORKDIR /root/SysML-v2-Release-2021-01/install/jupyter
 
+## Point the publish command to the local API server.
+RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i install.sh
+
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
 ENV PATH="/usr/conda/bin:/usr/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -52,5 +55,5 @@ COPY KernelMagic.ipynb .
 ## as root but for test and individual purposes, this is should fine.
 ENTRYPOINT ["jupyter", "lab", \
   "--allow-root",             \
-  "--ip", "172.17.0.2",       \
+  "--ip", "sysmljupyter",       \
   "--port", "8888"]

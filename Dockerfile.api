@@ -1,0 +1,35 @@
+FROM openjdk:11-slim
+
+WORKDIR /root
+
+RUN apt-get --quiet --yes update && apt-get install -yqq wget
+
+RUN wget -q https://github.com/sbt/sbt/releases/download/v1.4.7/sbt-1.4.7.tgz
+
+RUN wget -q https://github.com/Systems-Modeling/SysML-v2-API-Services/archive/2021-01.tar.gz
+
+RUN tar xfz sbt-1.4.7.tgz
+RUN tar xfz 2021-01.tar.gz
+
+WORKDIR /root/SysML-v2-API-Services-2021-01
+
+##
+## Basically this is all taken from
+##     https://github.com/Systems-Modeling/SysML-v2-API-Services
+## and the installation instructions over there.
+##
+RUN /root/sbt/bin/sbt clean
+RUN /root/sbt/bin/sbt update
+RUN /root/sbt/bin/sbt compile
+RUN /root/sbt/bin/sbt doc
+
+# Play framework complains about the secret key length...
+RUN sed s/key=.whatever./key=\"longersecretnowarnings\"/ -i conf/application.conf
+
+# need to allow the jupyter server from accessing the API server
+RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"sysmlapiserver:9000\", \"localhost:9000\"]\n}\n" >> conf/application.conf
+
+# point the image to the postgres that is setup via docker-compose
+RUN sed s/localhost:5432/postgresdbserver:5432/ -i conf/META-INF/persistence.xml
+
+ENTRYPOINT ["/root/sbt/bin/sbt", "run"]

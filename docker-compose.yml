@@ -1,0 +1,39 @@
+version: '2'
+services:
+  postgresdbserver:
+    image: postgres:9.6.6
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=sysml2
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdbserver:/var/lib/postgresql/data
+
+  sysmlapiserver:
+    image: sysml.api:latest
+    tty: true
+    links:
+      - postgresdbserver
+    ports:
+      - "9000:9000"
+    restart: always
+
+  sysmljupyter:
+    image: sysml:latest
+    links:
+      - sysmlapiserver
+    ports:
+      - "8888:8888"
+    restart: always
+
+networks:
+  default:
+    external:
+      name: thenetwork
+
+volumes:
+  postgresdbserver:
+    external: true

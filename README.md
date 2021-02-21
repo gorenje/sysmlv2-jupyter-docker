@@ -1,9 +1,10 @@
-# Docker image for running SysML in Jupyter
+# Docker image for running SysML v2
 
 Create a docker image for running [SysML v2 Release](https://github.com/Systems-Modeling/SysML-v2-Release) in Jupyter.
 
 The setup is taken from the [Jupyter installation](https://github.com/Systems-Modeling/SysML-v2-Release/tree/master/install/jupyter) using the 2021-01 release.
 
+This will also start a [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services) so that everything that is published from Jupyter will go to this server.
 
 ## Prerequistes
 
@@ -13,40 +14,41 @@ Everything else is installed by the build.
 
 ## Usage
 
-### Using Makefile
+Be aware, building the docker images will take a while since all the software
+packages are retrieved. There are no images at hub.docker.com --> everything
+is built and run locally.
 
-To build the image
+To start up the Jupyter server, the postgres server and the API server:
 
-    make build
+    make spin-up
 
-To run the image
-
-    make run
-
-Then point your browser to the URL displayed by Jupyter, something like:
+Then point your browser first to ```http://localhost:9000/docs/``` - this will setup
+the database for the API server. Once this displays a page, then point your
+browswer to the Jupyter page. This should be somewhere on ```localhost:8888```,
+don't use the hostname ```sysmljupyter```, that's internal to docker.
 
 ```
     To access the notebook, open this file in a browser:
         file:///root/.local/share/jupyter/runtime/nbserver-1-open.html
     Or copy and paste one of these URLs:
-        http://172.17.0.2:8888/?token=392e5b7c0e8cde28d6f988862bc7ad81ba6c517e31b63520
+        http://sysmljupyter:8888/?token=392e5b7c0e8cde28d6f988862bc7ad81ba6c517e31b63520
      or http://127.0.0.1:8888/?token=392e5b7c0e8cde28d6f988862bc7ad81ba6c517e31b63520
 ```
 
 The token is unique for each start of the container.
 
+## Using Docker
 
-### Docker Commands
-
-Building:
+If you want to do this using docker only, i.e. no makefile, then have a
+look at the Makefile. Basically it's something along the lines of:
 
     docker build -t sysml .
+    docker build -t sysml.api -f Dockerfile.api .
+    docker network create thenetwork
+    docker volume create postgresdbserver
+    docker-compose -f docker-compose.yml up
 
-Running:
-
-    docker run -p 8888:8888 -t sysml:latest
-
-
+And that should be the same as ```make spin-up```.
 
 ## Example Notebooks
 
