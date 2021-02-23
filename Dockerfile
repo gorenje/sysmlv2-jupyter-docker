@@ -45,8 +45,14 @@ RUN apt-get --quiet --yes update && apt-get install -yqq \
 
 WORKDIR /root/SysML-v2-Release-2021-01/
 
+## Move any files in the top level directory to the doc directory
+RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
+
 ## Example Notebooks
-COPY KernelMagic.ipynb .
+COPY notebooks/*.ipynb ./
+
+## Trust the notebooks so that the SVG images will be displayed.
+RUN jupyter trust ./*.ipynb
 
 ## Security Warning:
 ##
