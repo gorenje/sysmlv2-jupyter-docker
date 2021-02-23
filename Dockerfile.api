@@ -32,4 +32,7 @@ RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"sysmlapiserver:9000\", \"loc
 # point the image to the postgres that is setup via docker-compose
 RUN sed s/localhost:5432/postgresdbserver:5432/ -i conf/META-INF/persistence.xml
 
+# don't recreate the database if it already exists.
+RUN sed s/value=.create-drop./value=\"update\"/ -i conf/META-INF/persistence.xml
+
 ENTRYPOINT ["/root/sbt/bin/sbt", "run"]
