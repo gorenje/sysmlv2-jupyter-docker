@@ -2,7 +2,7 @@
 
 Create a docker image for running [SysML v2 Release](https://github.com/Systems-Modeling/SysML-v2-Release) in Jupyter.
 
-The setup is taken from the [Jupyter installation](https://github.com/Systems-Modeling/SysML-v2-Release/tree/master/install/jupyter) using the 2021-01 release.
+The setup is taken from the [Jupyter installation](https://github.com/Systems-Modeling/SysML-v2-Release/tree/master/install/jupyter).
 
 In addition, an [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services) is also started and everything published in Jupyter will be pushed into this server.
 
@@ -11,6 +11,10 @@ In addition, an [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Se
 You can run this on [Binder](https://mybinder.org) but it will only run the SysMLv2-based Jupyter server, not the API server.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
+
+Specific versions of the SysMLv2 Releases are also available:
+
+- [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2020-10)
 
 ## Prerequistes
 
