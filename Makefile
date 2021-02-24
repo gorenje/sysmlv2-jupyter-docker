@@ -1,10 +1,13 @@
+# SysMLv2 Release to use.
+release = 2021-01
+
 .PHONY: build-api
 build-api: ## build the API server docker image
-	docker build -t sysml.api -f Dockerfile.api .
+	docker build -t sysml.api -f Dockerfile.api --build-arg RELEASE=$(release) .
 
 .PHONY: build-jupyter
 build-jupyter: ## build the API+Jupyter Jupyter docker image
-	docker build -t sysml.jupyter -f Dockerfile.jupyter .
+	docker build -t sysml.jupyter -f Dockerfile.jupyter --build-arg RELEASE=$(release) .
 
 .PHONY: create-periphery
 create-periphery: ## Create network and volume for docker-compose
@@ -17,7 +20,7 @@ spin-up: create-periphery build-jupyter build-api ## spin all servers up
 
 .PHONY: build-standalone
 build-standalone: ## build standalone Jupyter image
-	docker build -t sysml.standalone .
+	docker build -t sysml.standalone --build-arg RELEASE=$(release) .
 
 .PHONY: run-standalone
 run-standalone: build-standalone # run the standalone jupyter image

@@ -16,10 +16,15 @@ RUN apt-get --quiet --yes update && apt-get install -yqq wget
 ##
 RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
+
+## Defining the RELEASE down here ensures that the previous comamnds can
+## be recycled since they're not affected by the release version.
+ARG RELEASE=2021-01
+
 ##
 ## SysML page: https://github.com/Systems-Modeling/SysML-v2-Release
 ##
-RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/2021-01.tar.gz
+RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz
 
 ## Install MiniConda
 RUN chmod 755 /root/Miniconda3-latest-Linux-x86_64.sh
@@ -28,9 +33,9 @@ RUN /root/Miniconda3-latest-Linux-x86_64.sh -f -b -p /usr/conda
 RUN /usr/conda/condabin/conda init
 
 ## Install SysML
-RUN tar xzf 2021-01.tar.gz
+RUN tar xzf ${RELEASE}.tar.gz
 
-WORKDIR /root/SysML-v2-Release-2021-01/install/jupyter
+WORKDIR /root/SysML-v2-Release-${RELEASE}/install/jupyter
 
 ## Point the publish command to the local API server.
 RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i install.sh
@@ -48,7 +53,7 @@ RUN apt-get --quiet --yes update && apt-get install -yqq \
   texlive-generic-recommended \
   texlive-xetex
 
-WORKDIR /root/SysML-v2-Release-2021-01/
+WORKDIR /root/SysML-v2-Release-${RELEASE}/
 
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;

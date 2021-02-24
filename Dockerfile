@@ -41,10 +41,14 @@ WORKDIR /home/${NB_USER}
 ##
 RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
+## Defining the RELEASE down here ensures that the previous comamnds can
+## be recycled since they're not affected by the release version.
+ARG RELEASE=2021-01
+
 ##
 ## SysML page: https://github.com/Systems-Modeling/SysML-v2-Release
 ##
-RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/2021-01.tar.gz
+RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz
 
 ## Install MiniConda
 RUN chmod 755 /home/${NB_USER}/Miniconda3-latest-Linux-x86_64.sh
@@ -53,16 +57,16 @@ RUN /home/${NB_USER}/Miniconda3-latest-Linux-x86_64.sh -f -b -p /home/${NB_USER}
 RUN /home/${NB_USER}/conda/condabin/conda init
 
 ## Install SysML
-RUN tar xzf 2021-01.tar.gz
+RUN tar xzf ${RELEASE}.tar.gz
 
-WORKDIR /home/${NB_USER}/SysML-v2-Release-2021-01/install/jupyter
+WORKDIR /home/${NB_USER}/SysML-v2-Release-${RELEASE}/install/jupyter
 
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
 ENV PATH="/home/${NB_USER}/conda/bin:/home/${NB_USER}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 RUN ./install.sh
 
-WORKDIR /home/${NB_USER}/SysML-v2-Release-2021-01/
+WORKDIR /home/${NB_USER}/SysML-v2-Release-${RELEASE}/
 
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;

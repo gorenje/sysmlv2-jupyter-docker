@@ -10,14 +10,19 @@ WORKDIR /root
 
 RUN apt-get --quiet --yes update && apt-get install -yqq wget
 
-RUN wget -q https://github.com/sbt/sbt/releases/download/v1.4.7/sbt-1.4.7.tgz
+ARG SBT_VERSION=1.2.8
+RUN wget -q https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz
 
-RUN wget -q https://github.com/Systems-Modeling/SysML-v2-API-Services/archive/2021-01.tar.gz
+## Defining the RELEASE down here ensures that the previous comamnds can
+## be recycled since they're not affected by the release version.
+ARG RELEASE=2021-01
 
-RUN tar xfz sbt-1.4.7.tgz
-RUN tar xfz 2021-01.tar.gz
+RUN wget -q https://github.com/Systems-Modeling/SysML-v2-API-Services/archive/${RELEASE}.tar.gz
 
-WORKDIR /root/SysML-v2-API-Services-2021-01
+RUN tar xfz sbt-${SBT_VERSION}.tgz
+RUN tar xfz ${RELEASE}.tar.gz
+
+WORKDIR /root/SysML-v2-API-Services-${RELEASE}
 
 ##
 ## Basically this is all taken from
