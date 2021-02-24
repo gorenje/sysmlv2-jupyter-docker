@@ -7,7 +7,7 @@ build-api: ## build the API server docker image
 	docker build -t sysml.api -f Dockerfile.api .
 
 .PHONY: build-jupyter
-build-api: ## build the API+Jupyter Jupyter docker image
+build-jupyter: ## build the API+Jupyter Jupyter docker image
 	docker build -t sysml.jupyter -f Dockerfile.jupyter .
 
 .PHONY: create-periphery
