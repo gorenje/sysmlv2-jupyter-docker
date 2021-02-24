@@ -1,3 +1,10 @@
+##
+## Basically the same as the standalone Dockerfile except we make three changes
+## here:
+##    1) point the publish command to the locally running API server and
+##    2) make Jupyter listen on the internal network interface and not 0.0.0.0
+##    3) include more notebooks which assume a locally running API server
+##
 FROM openjdk:17-slim
 
 WORKDIR /root
@@ -27,6 +34,9 @@ RUN tar xzf 2021-01.tar.gz
 
 WORKDIR /root/SysML-v2-Release-2021-01/install/jupyter
 
+## Point the publish command to the local API server.
+RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i install.sh
+
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
 ENV PATH="/usr/conda/bin:/usr/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -45,17 +55,11 @@ WORKDIR /root/SysML-v2-Release-2021-01/
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 
-COPY ["notebooks/SysML - State Charts.ipynb",     \
-      "notebooks/SysML - Decision Example.ipynb", \
-      "./"]
+## Example Notebooks
+COPY notebooks/*.ipynb ./
 
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
-
-## Remove token authentication. Shouldn't do this however this dockerfile
-## is intended to be run at mybinder.org and therefore needs to be open.
-RUN jupyter notebook --generate-config
-RUN echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py
 
 ## Security Warning:
 ##
@@ -64,5 +68,5 @@ RUN echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py
 ## as root but for test and individual purposes, this is should fine.
 ENTRYPOINT ["jupyter", "lab", \
   "--allow-root",             \
-  "--ip", "0.0.0.0",          \
+  "--ip", "sysmljupyter",     \
   "--port", "8888"]

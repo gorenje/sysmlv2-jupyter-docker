@@ -22,7 +22,7 @@ services:
     restart: always
 
   sysmljupyter:
-    image: sysml:latest
+    image: sysml.jupyter:latest
     links:
       - sysmlapiserver
     ports:
