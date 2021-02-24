@@ -1,5 +1,11 @@
 FROM openjdk:11-slim
 
+##
+## This Dockerfile setups the SysML v2 API server and is designed to be
+## run in conjunction with the Jupyter server. This dockerfile is specifically
+## designed to be run with docker-compose.
+##
+
 WORKDIR /root
 
 RUN apt-get --quiet --yes update && apt-get install -yqq wget

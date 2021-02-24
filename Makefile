@@ -1,7 +1,3 @@
-.PHONY: build
-build: ## build standalone Jupyter image
-	docker build -t sysml.standalone .
-
 .PHONY: build-api
 build-api: ## build the API server docker image
 	docker build -t sysml.api -f Dockerfile.api .
@@ -19,9 +15,13 @@ create-periphery: ## Create network and volume for docker-compose
 spin-up: create-periphery build-jupyter build-api ## spin all servers up
 	docker-compose -f docker-compose.yml up
 
-.PHONY: run
-run: build # run the standalone jupyter image
-	docker run -p 8888:8888 -t sysml.standalone
+.PHONY: build-standalone
+build-standalone: ## build standalone Jupyter image
+	docker build -t sysml.standalone .
+
+.PHONY: run-standalone
+run-standalone: build-standalone # run the standalone jupyter image
+	docker run -p 8888:8888 -t sysml.standalone jupyter lab --ip 0.0.0.0 --port 8888
 
 .PHONY: help
 help:

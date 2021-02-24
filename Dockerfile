@@ -1,7 +1,11 @@
 FROM openjdk:17-slim
 
+##
+## This Dockerfile is specifically designed for execution at mybinder.org
+##
+
 ## wget is used to retrieve Conda and SysML Release. Inkscape and LaTeX is
-## required to render the notebooks as PDFs.
+## required for rendering notebooks as PDFs.
 RUN apt-get --quiet --yes update && apt-get install -yqq \
   wget                        \
   inkscape                    \

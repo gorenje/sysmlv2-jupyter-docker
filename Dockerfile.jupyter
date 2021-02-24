@@ -1,12 +1,10 @@
-##
-## Basically the same as the standalone Dockerfile except we make three changes
-## here:
-##    1) point the publish command to the locally running API server and
-##    2) make Jupyter listen on the internal network interface and not 0.0.0.0
-##    3) include more notebooks which assume a locally running API server
-##
 FROM openjdk:17-slim
 
+##
+## This Dockerfile is specifically designed to be run with the API Server
+## and started via docker-compose. It makes assumptions about the existence
+## of an docker internal network.
+##
 WORKDIR /root
 
 ## wget is used to retrieve Conda and SysML Release.
