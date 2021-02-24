@@ -1,9 +1,35 @@
 FROM openjdk:17-slim
 
-WORKDIR /root
+## wget is used to retrieve Conda and SysML Release. Inkscape and LaTeX is
+## required to render the notebooks as PDFs.
+RUN apt-get --quiet --yes update && apt-get install -yqq \
+  wget                        \
+  inkscape                    \
+  texlive-fonts-recommended   \
+  texlive-generic-recommended \
+  texlive-xetex
 
-## wget is used to retrieve Conda and SysML Release.
-RUN apt-get --quiet --yes update && apt-get install -yqq wget
+##
+## Non-root user is a requirement of Binder:
+##   https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
+##
+ARG NB_USER=sysml
+ARG NB_UID=1000
+ENV USER ${NB_USER}
+ENV NB_UID ${NB_UID}
+ENV HOME /home/${NB_USER}
+
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+
+USER root
+RUN chown -R ${NB_UID} ${HOME}
+
+USER ${NB_USER}
+
+WORKDIR /home/${NB_USER}
 
 ##
 ## Miniconda installation page:
@@ -17,30 +43,22 @@ RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.s
 RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/2021-01.tar.gz
 
 ## Install MiniConda
-RUN chmod 755 /root/Miniconda3-latest-Linux-x86_64.sh
-RUN mkdir /usr/conda
-RUN /root/Miniconda3-latest-Linux-x86_64.sh -f -b -p /usr/conda
-RUN /usr/conda/condabin/conda init
+RUN chmod 755 /home/${NB_USER}/Miniconda3-latest-Linux-x86_64.sh
+RUN mkdir /home/${NB_USER}/conda
+RUN /home/${NB_USER}/Miniconda3-latest-Linux-x86_64.sh -f -b -p /home/${NB_USER}/conda
+RUN /home/${NB_USER}/conda/condabin/conda init
 
 ## Install SysML
 RUN tar xzf 2021-01.tar.gz
 
-WORKDIR /root/SysML-v2-Release-2021-01/install/jupyter
+WORKDIR /home/${NB_USER}/SysML-v2-Release-2021-01/install/jupyter
 
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
-ENV PATH="/usr/conda/bin:/usr/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV PATH="/home/${NB_USER}/conda/bin:/home/${NB_USER}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 RUN ./install.sh
 
-## These are required for exporting notebooks as PDF and aren't installed
-## by Conda.
-RUN apt-get --quiet --yes update && apt-get install -yqq \
-  inkscape                    \
-  texlive-fonts-recommended   \
-  texlive-generic-recommended \
-  texlive-xetex
-
-WORKDIR /root/SysML-v2-Release-2021-01/
+WORKDIR /home/${NB_USER}/SysML-v2-Release-2021-01/
 
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
@@ -51,18 +69,3 @@ COPY ["notebooks/SysML - State Charts.ipynb",     \
 
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
-
-## Remove token authentication. Shouldn't do this however this dockerfile
-## is intended to be run at mybinder.org and therefore needs to be open.
-RUN jupyter notebook --generate-config
-RUN echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py
-
-## Security Warning:
-##
-## If you're planning to use this for anything other than test purposes,
-## then setup a user and remove the --allow-root here. Should not be run
-## as root but for test and individual purposes, this is should fine.
-ENTRYPOINT ["jupyter", "lab", \
-  "--allow-root",             \
-  "--ip", "0.0.0.0",          \
-  "--port", "8888"]
