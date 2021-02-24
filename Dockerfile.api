@@ -29,16 +29,16 @@ RUN /root/sbt/bin/sbt update
 RUN /root/sbt/bin/sbt compile
 RUN /root/sbt/bin/sbt doc
 
-# Play framework complains about the secret key length...
+## Play framework complains about the secret key length...
 RUN sed s/key=.whatever./key=\"longersecretnowarnings\"/ -i conf/application.conf
 
-# need to allow the jupyter server from accessing the API server
+## need to allow the jupyter server access to the API server
 RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"sysmlapiserver:9000\", \"localhost:9000\"]\n}\n" >> conf/application.conf
 
-# point the image to the postgres that is setup via docker-compose
+## point the image to the postgres that is setup via docker-compose
 RUN sed s/localhost:5432/postgresdbserver:5432/ -i conf/META-INF/persistence.xml
 
-# don't recreate the database if it already exists.
+## don't recreate the database if it already exists.
 RUN sed s/value=.create-drop./value=\"update\"/ -i conf/META-INF/persistence.xml
 
 ENTRYPOINT ["/root/sbt/bin/sbt", "run"]
