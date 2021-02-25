@@ -31,9 +31,9 @@ RUN adduser --disabled-password \
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 
+## Switch to the lowly user, no more root.
 USER ${NB_USER}
-
-WORKDIR /home/${NB_USER}
+WORKDIR ${HOME}
 
 ##
 ## Miniconda installation page:
@@ -51,22 +51,22 @@ ARG RELEASE=2021-01
 RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz
 
 ## Install MiniConda
-RUN chmod 755 /home/${NB_USER}/Miniconda3-latest-Linux-x86_64.sh
-RUN mkdir /home/${NB_USER}/conda
-RUN /home/${NB_USER}/Miniconda3-latest-Linux-x86_64.sh -f -b -p /home/${NB_USER}/conda
-RUN /home/${NB_USER}/conda/condabin/conda init
+RUN chmod 755 ${HOME}/Miniconda3-latest-Linux-x86_64.sh
+RUN mkdir ${HOME}/conda
+RUN ${HOME}/Miniconda3-latest-Linux-x86_64.sh -f -b -p ${HOME}/conda
+RUN ${HOME}/conda/condabin/conda init
 
 ## Install SysML
 RUN tar xzf ${RELEASE}.tar.gz
 
-WORKDIR /home/${NB_USER}/SysML-v2-Release-${RELEASE}/install/jupyter
+WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/install/jupyter
 
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
-ENV PATH="/home/${NB_USER}/conda/bin:/home/${NB_USER}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV PATH="${HOME}/conda/bin:${HOME}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 RUN ./install.sh
 
-WORKDIR /home/${NB_USER}/SysML-v2-Release-${RELEASE}/
+WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
