@@ -84,4 +84,5 @@ COPY notebooks/*.ipynb ./
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
 
+EXPOSE 8888
 ENTRYPOINT jupyter lab --ip sysmljupyter --port 8888
