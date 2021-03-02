@@ -74,5 +74,8 @@ RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 ## Copy all notebooks into the docker image
 COPY --chown=${NB_USER} notebooks/*.ipynb ./
 
+## This only makes sense in the `make spin-up` environment, i.e. locally
+RUN rm StartHere.ipynb
+
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
