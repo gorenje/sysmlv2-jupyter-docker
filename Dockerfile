@@ -71,9 +71,8 @@ WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 
-COPY ["notebooks/SysML - State Charts.ipynb",     \
-      "notebooks/SysML - Decision Example.ipynb", \
-      "./"]
+## Copy all notebooks into the docker image
+COPY --chown=${NB_USER} notebooks/*.ipynb ./
 
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb

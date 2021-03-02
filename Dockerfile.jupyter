@@ -79,7 +79,7 @@ WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 
 ## Install example Notebooks
-COPY notebooks/*.ipynb ./
+COPY --chown=${NB_USER} notebooks/*.ipynb ./
 
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
