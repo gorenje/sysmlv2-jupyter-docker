@@ -26,6 +26,10 @@ build-standalone: ## build standalone Jupyter image
 run-standalone: build-standalone # run the standalone jupyter image
 	docker run -p 8888:8888 -t sysml.standalone jupyter lab --ip 0.0.0.0 --port 8888
 
+.PHONY: get-notebooks
+get-notebooks: ## retrieve all notebooks in a standalone running container
+	docker exec -i $$(docker ps | grep sysml.standalone | awk '// { print $$1 }') /bin/bash -c "tar czf - *.ipynb" | tar xf -
+
 .PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
