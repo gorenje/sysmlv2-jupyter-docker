@@ -6,11 +6,15 @@ The setup is taken from the [Jupyter installation](https://github.com/Systems-Mo
 
 In addition, an [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services) is also started and everything published in Jupyter will be pushed into this server.
 
-## Trying it out?
+## Remote Services
+
+You can try this out on Binder, via DockerHub or just view the notebooks at nbviewer.
+
+### Binder
 
 You can run this on [Binder](https://mybinder.org) but it will only run the SysMLv2-based Jupyter server, not the API server.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
+Latest version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
 
 Specific versions of the SysMLv2 Releases are also available:
 
@@ -22,9 +26,20 @@ Specific versions of the SysMLv2 Releases are also available:
 
 You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/master/notebooks) and from there it's possible to start up [Binder](https://mybinder.org).
 
-## Dockerhub
+### Dockerhub
 
 Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server.
+
+### nbviewer
+
+Links to nbviewer:
+
+- [latest](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/)
+- [2021-02](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-02/)
+- [2021-01](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-01/)
+- [2020-12](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-12/)
+- [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)
+- [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/)
 
 ## Prerequistes
 
@@ -32,7 +47,7 @@ Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupy
 
 Everything else is installed by the build process.
 
-## Usage
+## Local Usage
 
 Be aware, building the docker images will take a while since all the software
 packages will be retrieved. Everything is built and run locally.
