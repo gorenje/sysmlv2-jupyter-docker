@@ -20,11 +20,19 @@ spin-up: create-periphery build-jupyter build-api ## spin all servers up
 
 .PHONY: build-standalone
 build-standalone: ## build standalone Jupyter image
-	docker build -t sysml.standalone --build-arg RELEASE=$(release) .
+	docker build -t sysml.standalone:$(release) --build-arg RELEASE=$(release) .
 
 .PHONY: run-standalone
 run-standalone: build-standalone # run the standalone jupyter image
-	docker run -p 8888:8888 -t sysml.standalone jupyter lab --ip 0.0.0.0 --port 8888
+	docker run -p 8888:8888 -t sysml.standalone:$(release) jupyter lab --ip 0.0.0.0 --port 8888
+
+.PHONY: build-hub
+build-hub: ## Build standalone dockerhub image
+	docker build -t gorenje/sysmlv2-jupyter:$(release) -f Dockerfile.hub --build-arg RELEASE=$(release) .
+
+.PHONY: build
+build: build-api build-hub build-standalone build-jupyter ## build all images
+	echo done
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
