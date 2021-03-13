@@ -41,16 +41,18 @@ Links to nbviewer:
 - [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)
 - [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/)
 
-## Prerequistes
+## Local Usage
+
+Be aware, building the docker images will take a while since all the software
+packages will be retrieved. Everything is built and run locally.
+
+### Prerequistes
 
 - [Docker](https://www.docker.com/)
 
 Everything else is installed by the build process.
 
-## Local Usage
-
-Be aware, building the docker images will take a while since all the software
-packages will be retrieved. Everything is built and run locally.
+### Makefile
 
 To start up the SysML-Jupyter server, the postgres server and the API server:
 
@@ -73,7 +75,7 @@ The token is unique for each start of the container.
 
 NOTE: If `localhost` does not work in the URLs, try `127.0.0.1` instead.
 
-## Using Docker
+### Using Docker
 
 If you want to do this using docker only, i.e. no makefile, then have a
 look at the Makefile. Basically it's something along the lines of:
