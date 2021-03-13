@@ -1,5 +1,5 @@
 # SysMLv2 Release to use.
-release = 2021-01
+release = 2021-02
 
 .PHONY: build-api
 build-api: ## build the API server docker image

@@ -14,6 +14,7 @@ You can run this on [Binder](https://mybinder.org) but it will only run the SysM
 
 Specific versions of the SysMLv2 Releases are also available:
 
+- [2021-02](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2021-02)
 - [2021-01](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2021-01)
 - [2020-12](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2020-12)
 - [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2020-11)
