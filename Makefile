@@ -36,7 +36,7 @@ build: build-api build-hub build-standalone build-jupyter ## build all images
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
-	docker exec -i $$(docker ps | grep sysml.standalone | awk '// { print $$1 }') /bin/bash -c "tar czf - *.ipynb" | tar xf -
+	docker exec -i $$(docker ps | grep sysml.standalone | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks/*.ipynb" | tar xf -
 
 .PHONY: help
 help:
