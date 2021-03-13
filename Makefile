@@ -20,7 +20,7 @@ spin-up: create-periphery build-jupyter build-api ## spin all servers up
 
 .PHONY: build-standalone
 build-standalone: ## build standalone Jupyter image
-	docker build -t sysml.standalone:$(release) --build-arg RELEASE=$(release) .
+	docker build -t sysml.standalone:$(release) -f Dockerfile --build-arg RELEASE=$(release) .
 
 .PHONY: run-standalone
 run-standalone: build-standalone # run the standalone jupyter image
