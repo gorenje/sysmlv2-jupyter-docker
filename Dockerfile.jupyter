@@ -5,17 +5,43 @@ FROM openjdk:17-slim
 ## and started via docker-compose. It makes assumptions about the existence
 ## of an docker internal network.
 ##
-WORKDIR /root
 
-## wget is used to retrieve Conda and SysML Release.
-RUN apt-get --quiet --yes update && apt-get install -yqq wget
+## wget is used to retrieve Conda and SysML Release. Inkscape and LaTeX is
+## required for rendering notebooks as PDFs.
+RUN apt-get --quiet --yes update && apt-get install -yqq \
+  wget                        \
+  inkscape                    \
+  texlive-fonts-recommended   \
+  texlive-generic-recommended \
+  texlive-xetex
+
+##
+## Non-root user is a requirement of Binder:
+##   https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
+##
+ARG NB_USER=sysml
+ARG NB_UID=1000
+ENV USER ${NB_USER}
+ENV NB_UID ${NB_UID}
+ENV HOME /home/${NB_USER}
+
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+
+USER root
+RUN chown -R ${NB_UID} ${HOME}
+
+## Switch to the lowly user, no more root.
+USER ${NB_USER}
+WORKDIR ${HOME}
 
 ##
 ## Miniconda installation page:
 ## https://docs.conda.io/en/latest/miniconda.html#linux-installers
 ##
 RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-
 
 ## Defining the RELEASE down here ensures that the previous comamnds can
 ## be recycled since they're not affected by the release version.
@@ -27,49 +53,36 @@ ARG RELEASE=2021-01
 RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz
 
 ## Install MiniConda
-RUN chmod 755 /root/Miniconda3-latest-Linux-x86_64.sh
-RUN mkdir /usr/conda
-RUN /root/Miniconda3-latest-Linux-x86_64.sh -f -b -p /usr/conda
-RUN /usr/conda/condabin/conda init
+RUN chmod 755 ${HOME}/Miniconda3-latest-Linux-x86_64.sh
+RUN mkdir ${HOME}/conda
+RUN ${HOME}/Miniconda3-latest-Linux-x86_64.sh -f -b -p ${HOME}/conda
+RUN ${HOME}/conda/condabin/conda init
 
-## Install SysML
+## Unpack SysML
 RUN tar xzf ${RELEASE}.tar.gz
 
-WORKDIR /root/SysML-v2-Release-${RELEASE}/install/jupyter
+WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/install/jupyter
 
 ## Point the publish command to the local API server.
 RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i install.sh
 
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
-ENV PATH="/usr/conda/bin:/usr/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV PATH="${HOME}/conda/bin:${HOME}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+## Install SysMLv2 as Jupyter Kernel
 RUN ./install.sh
 
-## These are required for exporting notebooks as PDF and aren't installed
-## by Conda.
-RUN apt-get --quiet --yes update && apt-get install -yqq \
-  inkscape                    \
-  texlive-fonts-recommended   \
-  texlive-generic-recommended \
-  texlive-xetex
-
-WORKDIR /root/SysML-v2-Release-${RELEASE}/
+WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 
-## Example Notebooks
-COPY notebooks/*.ipynb ./
+## Install example Notebooks
+COPY --chown=${NB_USER} notebooks/*.ipynb ./
 
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
 
-## Security Warning:
-##
-## If you're planning to use this for anything other than test purposes,
-## then setup a user and remove the --allow-root here. Should not be run
-## as root but for test and individual purposes, this is should fine.
-ENTRYPOINT ["jupyter", "lab", \
-  "--allow-root",             \
-  "--ip", "sysmljupyter",     \
-  "--port", "8888"]
+EXPOSE 8888
+ENTRYPOINT jupyter lab --ip sysmljupyter --port 8888
