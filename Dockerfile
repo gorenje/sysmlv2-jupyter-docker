@@ -71,11 +71,13 @@ WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 
-## Copy all notebooks into the docker image
-COPY --chown=${NB_USER} notebooks/*.ipynb ./
+## Copy all notebooks into the docker image. Move them into a notebooks
+## subdirectory so that nbviewer + mybinder can work together.
+RUN mkdir notebooks
+ADD --chown=${NB_USER} notebooks/*.ipynb notebooks/
 
 ## This only makes sense in the `make spin-up` environment, i.e. locally
-RUN rm StartHere.ipynb
+RUN rm notebooks/StartHere.ipynb
 
 ## Trust the notebooks so that the SVG images will be displayed.
-RUN jupyter trust ./*.ipynb
+RUN jupyter trust notebooks/*.ipynb
