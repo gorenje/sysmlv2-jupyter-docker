@@ -1,6 +1,9 @@
 # SysMLv2 Release to use.
 release = 2021-02
 
+##
+## Local setup
+##
 .PHONY: build-api
 build-api: ## build the API server docker image
 	docker build -t sysml.api -f Dockerfile.api --build-arg RELEASE=$(release) .
@@ -18,18 +21,30 @@ create-periphery: ## Create network and volume for docker-compose
 spin-up: create-periphery build-jupyter build-api ## spin all servers up
 	docker-compose -f docker-compose.yml up
 
-.PHONY: build-standalone
-build-standalone: ## build standalone Jupyter image
-	docker build -t sysml.standalone:$(release) -f Dockerfile --build-arg RELEASE=$(release) .
+##
+## MyBinder image
+##
+.PHONY: build-mybinder
+build-mybinder: ## build mybinder Jupyter image
+	docker build -t sysml.mybinder:$(release) -f Dockerfile --build-arg RELEASE=$(release) .
 
-.PHONY: run-standalone
-run-standalone: build-standalone # run the standalone jupyter image
-	docker run -p 8888:8888 -t sysml.standalone:$(release) jupyter lab --ip 0.0.0.0 --port 8888
+.PHONY: run-mybinder
+run-mybinder: build-mybinder # run the mybinder jupyter image
+	docker run -p 8888:8888 -t sysml.mybinder:$(release) jupyter lab --ip 0.0.0.0 --port 8888
 
+##
+## Dockerhub image
+##
 .PHONY: build-hub
 build-hub: ## Build standalone dockerhub image
 	docker build -t gorenje/sysmlv2-jupyter:$(release) -f Dockerfile.hub --build-arg RELEASE=$(release) .
 
+.PHONY: run-hub
+run-hub: build-hub ## Build standalone dockerhub image
+	docker run -p 8888:8888 -t gorenje/sysmlv2-jupyter:$(release)
+
+
+## Build all
 .PHONY: build
 build: build-api build-hub build-standalone build-jupyter ## build all images
 	echo done
