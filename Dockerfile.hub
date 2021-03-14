@@ -80,5 +80,10 @@ RUN rm StartHere.ipynb
 ## Trust the notebooks so that the SVG images will be displayed.
 RUN jupyter trust ./*.ipynb
 
+## To remove the token from jupyter installation, uncomment the following two
+## lines - not recommended.
+#RUN jupyter notebook --generate-config
+#RUN echo "c.NotebookApp.token = ''" >> ${HOME}/.jupyter/jupyter_notebook_config.py
+
 EXPOSE 8888
 ENTRYPOINT jupyter lab --ip 0.0.0.0 --port 8888
