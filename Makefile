@@ -6,11 +6,11 @@ release = 2021-01
 ##
 .PHONY: build-api
 build-api: ## build the API server docker image
-	docker build -t sysml.api -f Dockerfile.api --build-arg RELEASE=$(release) .
+	docker build -t sysml.api:$(release) -f Dockerfile.api --build-arg RELEASE=$(release) .
 
 .PHONY: build-jupyter
 build-jupyter: ## build the API+Jupyter Jupyter docker image
-	docker build -t sysml.jupyter -f Dockerfile.jupyter --build-arg RELEASE=$(release) .
+	docker build -t sysml.jupyter:$(release) -f Dockerfile.jupyter --build-arg RELEASE=$(release) .
 
 .PHONY: create-periphery
 create-periphery: ## Create network and volume for docker-compose
@@ -19,7 +19,7 @@ create-periphery: ## Create network and volume for docker-compose
 
 .PHONY: spin-up
 spin-up: create-periphery build-jupyter build-api ## spin all servers up
-	docker-compose -f docker-compose.yml up
+	RELEASE=$(release) docker-compose -f docker-compose.yml up
 
 ##
 ## MyBinder image
@@ -51,7 +51,7 @@ build: build-api build-hub build-mybinder build-jupyter ## build all images
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
-	docker exec -i $$(docker ps | grep sysml.mybinder | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
 
 .PHONY: help
 help:

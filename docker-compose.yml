@@ -13,7 +13,7 @@ services:
       - postgresdbserver:/var/lib/postgresql/data
 
   sysmlapiserver:
-    image: sysml.api:latest
+    image: "sysml.api:${RELEASE}"
     tty: true
     links:
       - postgresdbserver
@@ -22,7 +22,7 @@ services:
     restart: always
 
   sysmljupyter:
-    image: sysml.jupyter:latest
+    image: "sysml.jupyter:${RELEASE}"
     links:
       - sysmlapiserver
     ports:
