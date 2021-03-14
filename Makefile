@@ -46,7 +46,7 @@ run-hub: build-hub ## Run dockerhub image
 
 ## Build all
 .PHONY: build
-build: build-api build-hub build-standalone build-jupyter ## build all images
+build: build-api build-hub build-mybinder build-jupyter ## build all images
 	echo done
 
 .PHONY: get-notebooks
