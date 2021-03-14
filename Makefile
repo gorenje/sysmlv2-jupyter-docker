@@ -41,17 +41,17 @@ build-hub: ## Build dockerhub image
 
 .PHONY: run-hub
 run-hub: build-hub ## Run dockerhub image
-	docker run -p 8888:8888 -t gorenje/sysmlv2-jupyter:$(release)
+	docker run -p 8888:8888 -e NO_TOKEN=yes -it gorenje/sysmlv2-jupyter:$(release)
 
 
 ## Build all
 .PHONY: build
-build: build-api build-hub build-standalone build-jupyter ## build all images
+build: build-api build-hub build-mybinder build-jupyter ## build all images
 	echo done
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
-	docker exec -i $$(docker ps | grep sysml.standalone | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks/*.ipynb" | tar xf -
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
 
 .PHONY: help
 help:
