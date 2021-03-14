@@ -78,11 +78,17 @@ WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 ## Move any files in the top level directory to the doc directory
 RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 
-## Install example Notebooks
-COPY --chown=${NB_USER} notebooks/*.ipynb ./
+## Copy example notebooks into the image
+RUN mkdir notebooks
+COPY --chown=${NB_USER} notebooks/ notebooks/
+
+# Move some top level notebooks to the toplevel
+RUN mv notebooks/*/StartHere.ipynb .
+RUN mv notebooks/*.ipynb .
 
 ## Trust the notebooks so that the SVG images will be displayed.
-RUN jupyter trust ./*.ipynb
+RUN jupyter trust notebooks/*/*.ipynb
+RUN jupyter trust *.ipynb
 
 EXPOSE 8888
 ENTRYPOINT jupyter lab --ip sysmljupyter --port 8888
