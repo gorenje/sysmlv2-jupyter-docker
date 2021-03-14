@@ -36,11 +36,11 @@ run-mybinder: build-mybinder # run the mybinder jupyter image
 ## Dockerhub image
 ##
 .PHONY: build-hub
-build-hub: ## Build standalone dockerhub image
+build-hub: ## Build dockerhub image
 	docker build -t gorenje/sysmlv2-jupyter:$(release) -f Dockerfile.hub --build-arg RELEASE=$(release) .
 
 .PHONY: run-hub
-run-hub: build-hub ## Build standalone dockerhub image
+run-hub: build-hub ## Run dockerhub image
 	docker run -p 8888:8888 -t gorenje/sysmlv2-jupyter:$(release)
 
 
