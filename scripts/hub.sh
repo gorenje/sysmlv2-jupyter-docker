@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## Entrypoint for the DockerHub image.
 
@@ -9,5 +9,6 @@ if [ "${NO_TOKEN}" == 'yes' ]; then
     echo "c.NotebookApp.token = ''" >> ${HOME}/.jupyter/jupyter_notebook_config.py
 fi
 
+
 ## Start up Jupyter lab.
-jupyter lab --ip 0.0.0.0 --port 8888
+jupyter lab --ip 0.0.0.0 --port 8888 --no-browser
