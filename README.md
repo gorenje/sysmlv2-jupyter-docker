@@ -6,26 +6,45 @@ The setup is taken from the [Jupyter installation](https://github.com/Systems-Mo
 
 In addition, an [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services) is also started and everything published in Jupyter will be pushed into this server.
 
-## Trying it out?
+## Remote Services
+
+You can try this out on Binder, via DockerHub or just view the notebooks at nbviewer.
+
+### Binder
 
 You can run this on [Binder](https://mybinder.org) but it will only run the SysMLv2-based Jupyter server, not the API server.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
+Latest version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
 
 Specific versions of the SysMLv2 Releases are also available:
 
 - [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2020-10)
 
-## Prerequistes
+You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/master/notebooks) and from there it's possible to start up [Binder](https://mybinder.org).
 
-- [Docker](https://www.docker.com/)
+### Dockerhub
 
-Everything else is installed by the build.
+Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server.
 
-## Usage
+### nbviewer
+
+Links to nbviewer:
+
+- [latest](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/)
+- [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/)
+
+## Local Usage
 
 Be aware, building the docker images will take a while since all the software
 packages will be retrieved. Everything is built and run locally.
+
+### Prerequistes
+
+- [Docker](https://www.docker.com/)
+
+Everything else is installed by the build process.
+
+### Makefile
 
 To start up the SysML-Jupyter server, the postgres server and the API server:
 
@@ -48,7 +67,7 @@ The token is unique for each start of the container.
 
 NOTE: If `localhost` does not work in the URLs, try `127.0.0.1` instead.
 
-## Using Docker
+### Using Docker
 
 If you want to do this using docker only, i.e. no makefile, then have a
 look at the Makefile. Basically it's something along the lines of:
@@ -77,11 +96,12 @@ might vary according to your experience level.
 - [MBSE4U.com](https://mbse4u.com/2020/12/21/sysml-v2-release-whats-inside/) is where I found the meta commands.
 - Also from MBSE4U.com, the example [notebook](https://nbviewer.jupyter.org/github/MBSE4U/SysMLv2JupyterBook/blob/master/SysMLv2JupyterBook.ipynb) at [nbviewer.jupyter.org](https://nbviewer.jupyter.org).
 
+
 ## Licensing
 
-Both [SysMLv2 API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services/blob/master/LICENSE) and [SysMLv2 Release](https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/LICENSE) are licensed under the LGPL and this co
-ntinues to be the case.
+Both [SysMLv2 API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services/blob/master/LICENSE) and [SysMLv2 Release](https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/LICENSE) are licensed under the LGPL and this continues to be the case.
 
-**This project does not make any changes to the existing licensing of the referenced projects.**
+**This project does not make any changes to the existing licensing of the
+referenced projects.**
 
 This project is also licensed under the [LGPL](/LICENSE).

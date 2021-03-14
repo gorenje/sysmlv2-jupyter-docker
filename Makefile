@@ -6,11 +6,11 @@ release = 2020-10
 ##
 .PHONY: build-api
 build-api: ## build the API server docker image
-	docker build -t sysml.api -f Dockerfile.api --build-arg RELEASE=$(release) .
+	docker build -t sysml.api:$(release) -f Dockerfile.api --build-arg RELEASE=$(release) .
 
 .PHONY: build-jupyter
 build-jupyter: ## build the API+Jupyter Jupyter docker image
-	docker build -t sysml.jupyter -f Dockerfile.jupyter --build-arg RELEASE=$(release) .
+	docker build -t sysml.jupyter:$(release) -f Dockerfile.jupyter --build-arg RELEASE=$(release) .
 
 .PHONY: create-periphery
 create-periphery: ## Create network and volume for docker-compose
@@ -19,7 +19,7 @@ create-periphery: ## Create network and volume for docker-compose
 
 .PHONY: spin-up
 spin-up: create-periphery build-jupyter build-api ## spin all servers up
-	docker-compose -f docker-compose.yml up
+	RELEASE=$(release) docker-compose -f docker-compose.yml up
 
 ##
 ## MyBinder image
@@ -41,17 +41,17 @@ build-hub: ## Build dockerhub image
 
 .PHONY: run-hub
 run-hub: build-hub ## Run dockerhub image
-	docker run -p 8888:8888 -t gorenje/sysmlv2-jupyter:$(release)
+	docker run -p 8888:8888 -e NO_TOKEN=yes -it gorenje/sysmlv2-jupyter:$(release)
 
 
 ## Build all
 .PHONY: build
-build: build-api build-hub build-standalone build-jupyter ## build all images
+build: build-api build-hub build-mybinder build-jupyter ## build all images
 	echo done
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
-	docker exec -i $$(docker ps | grep sysml.standalone | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks/*.ipynb" | tar xf -
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
 
 .PHONY: help
 help:
