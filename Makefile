@@ -51,7 +51,7 @@ build: build-api build-hub build-mybinder build-jupyter ## build all images
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
-	docker exec -i $$(docker ps | grep sysml.mybinder | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
 
 .PHONY: help
 help:
