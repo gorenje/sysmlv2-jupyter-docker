@@ -74,10 +74,11 @@ RUN find . -maxdepth 1 -type f -exec mv \{\} doc \;
 ## Copy all notebooks into the docker image. Move them into a notebooks
 ## subdirectory so that nbviewer + mybinder can work together.
 RUN mkdir notebooks
-COPY --chown=${NB_USER} notebooks/*.ipynb notebooks/
+COPY --chown=${NB_USER} notebooks/ notebooks/
 
 ## This only makes sense in the `make spin-up` environment, i.e. locally
-RUN rm notebooks/StartHere.ipynb
+RUN rm notebooks/*/StartHere.ipynb
 
 ## Trust the notebooks so that the SVG images will be displayed.
+RUN jupyter trust notebooks/*/*.ipynb
 RUN jupyter trust notebooks/*.ipynb
