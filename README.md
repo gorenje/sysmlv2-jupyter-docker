@@ -88,6 +88,27 @@ look at the Makefile. Basically it's something along the lines of:
 
 That is the same as doing ```make spin-up```.
 
+### Other Docker Builds
+
+The Makefile also does the following builds for local usage:
+
+1. `make build-mybinder` will build the docker image that is used with mybinder. This image can then be run locally using `make run-mybinder`.
+
+2. `make build-hub` will build the docker hub image. Running this image can be done with `make run-hub`.
+
+These also work for each release that is supported by this repo.
+
+### Checking out other releases
+
+Each release has it's own branch, so for example to test the [SysML v2 Release 2020-12](https://github.com/Systems-Modeling/SysML-v2-Release/releases/tag/2020-12), do the following:
+
+```
+git checkout release-2020-12
+make run-hub
+```
+
+That will locally start DockerHub Jupyter image with the 2020-12 release.
+
 ## Production Use?
 
 Don't.
