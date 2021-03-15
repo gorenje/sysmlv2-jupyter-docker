@@ -18,8 +18,8 @@ Latest version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinde
 
 Specific versions of the SysMLv2 Releases are also available:
 
-- [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2020-11)
-- [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/2020-10)
+- [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-11)
+- [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-10)
 
 You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/master/notebooks) and from there it's possible to start up [Binder](https://mybinder.org).
 
