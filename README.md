@@ -16,30 +16,31 @@ You can run this on [Binder](https://mybinder.org) but it will only run the SysM
 
 Latest version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
 
-Specific versions of the SysMLv2 Releases are also available:
-
-- [2021-02](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-02)
-- [2021-01](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-01)
-- [2020-12](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-12)
-- [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-11)
-- [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-10)
+See below for specific release links.
 
 You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/master/notebooks) and from there it's possible to start up [Binder](https://mybinder.org).
 
 ### Dockerhub
 
-Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server.
+Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server. 
+
+See below for specific pull statements.
 
 ### nbviewer
 
-Links to nbviewer:
+Repo can also be viewed using [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/). 
 
-- [latest](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/)
-- [2021-02](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-02/)
-- [2021-01](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-01/)
-- [2020-12](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-12/)
-- [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)
-- [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/)
+See below for specific release links.
+
+### Overview
+
+| [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/) | [binder](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD) | [docker hub](https://hub.docker.com/r/gorenje/sysmlv2-jupyter) |
+|:--|:--|:--|
+| [2021-02](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-02/) | [2021-02](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-02) |  `docker pull gorenje/sysmlv2-jupyter:2021-02` |
+| [2021-01](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-01/) | [2021-01](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-01) | `docker pull gorenje/sysmlv2-jupyter:2021-01`  |
+|  [2020-12](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-12/) | [2020-12](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-12) |  `docker pull gorenje/sysmlv2-jupyter:2020-12` |
+| [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)  | [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-11) |  `docker pull gorenje/sysmlv2-jupyter:2020-11` |
+| [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/) |  [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-10) | `docker pull gorenje/sysmlv2-jupyter:2020-10` |
 
 ## Local Usage
 
