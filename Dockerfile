@@ -48,7 +48,7 @@ ARG RELEASE=2021-02
 ##
 ## SysML page: https://github.com/Systems-Modeling/SysML-v2-Release
 ##
-RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz
+RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz?ts=20210316Z023100+00 -O ${RELEASE}.tar.gz
 
 ## Install MiniConda
 RUN chmod 755 ${HOME}/Miniconda3-latest-Linux-x86_64.sh
