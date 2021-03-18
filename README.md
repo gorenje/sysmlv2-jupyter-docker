@@ -22,15 +22,19 @@ You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/g
 
 ### Dockerhub
 
-Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server. 
+Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server.
 
 See below for specific pull statements.
 
 ### nbviewer
 
-Repo can also be viewed using [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/). 
+Repo can also be viewed using [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/).
 
 See below for specific release links.
+
+### Dedicated Server
+
+Thanks to [Tim Weilkiens](https://github.com/Weilkiti), there is now a dedicated [server](https://www.sysmlv2lab.com/) running the [latest](https://hub.docker.com/r/gorenje/sysmlv2-jupyter/tags?ordering=last_updated&page=1&name=latest) version of this repo.
 
 ### Overview
 
