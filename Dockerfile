@@ -80,5 +80,4 @@ COPY --chown=${NB_USER} notebooks/ notebooks/
 RUN rm notebooks/*/StartHere.ipynb
 
 ## Trust the notebooks so that the SVG images will be displayed.
-RUN jupyter trust notebooks/*/*.ipynb
-RUN jupyter trust notebooks/*.ipynb
+RUN find notebooks/ -name \*.ipynb -exec jupyter trust \{\} \;
