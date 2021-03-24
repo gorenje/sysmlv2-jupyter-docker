@@ -87,8 +87,7 @@ RUN mv notebooks/*/StartHere.ipynb .
 RUN mv notebooks/*.ipynb .
 
 ## Trust the notebooks so that the SVG images will be displayed.
-RUN jupyter trust notebooks/*/*.ipynb
-RUN jupyter trust *.ipynb
+RUN find notebooks/ -name \*.ipynb -exec jupyter trust \{\} \;
 
 EXPOSE 8888
 ENTRYPOINT jupyter lab --ip sysmljupyter --port 8888
