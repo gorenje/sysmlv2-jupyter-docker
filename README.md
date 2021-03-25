@@ -16,10 +16,7 @@ You can run this on [Binder](https://mybinder.org) but it will only run the SysM
 
 Latest version: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD)
 
-Specific versions of the SysMLv2 Releases are also available:
-
-- [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-11)
-- [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-10)
+See below for specific release links.
 
 You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/master/notebooks) and from there it's possible to start up [Binder](https://mybinder.org).
 
@@ -27,13 +24,24 @@ You can also view notebooks via [nbviewer](https://nbviewer.jupyter.org/github/g
 
 Docker images are also [available](https://hub.docker.com/r/gorenje/sysmlv2-jupyter). These are only of the Jupyter installation not the API server.
 
+See below for specific pull statements.
+
 ### nbviewer
 
-Links to nbviewer:
+Repo can also be viewed using [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/).
 
-- [latest](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/)
-- [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)
-- [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/)
+See below for specific release links.
+
+### Dedicated Server
+
+Thanks to [Tim Weilkiens](https://github.com/Weilkiti), there is now a dedicated [server](https://www.sysmlv2lab.com/) running the [latest](https://hub.docker.com/r/gorenje/sysmlv2-jupyter/tags?ordering=last_updated&page=1&name=latest) version of this repo.
+
+### Overview
+
+| [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/) | [binder](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD) | [docker hub](https://hub.docker.com/r/gorenje/sysmlv2-jupyter) |
+|:--|:--|:--|
+| [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)  | [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-11) |  `docker pull gorenje/sysmlv2-jupyter:2020-11` |
+| [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/) |  [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-10) | `docker pull gorenje/sysmlv2-jupyter:2020-10` |
 
 ## Local Usage
 
@@ -81,6 +89,27 @@ look at the Makefile. Basically it's something along the lines of:
     docker-compose -f docker-compose.yml up
 
 That is the same as doing ```make spin-up```.
+
+### Other Docker Builds
+
+The Makefile also does the following builds for local usage:
+
+1. `make build-mybinder` will build the docker image that is used with mybinder. This image can then be run locally using `make run-mybinder`.
+
+2. `make build-hub` will build the docker hub image. Running this image can be done with `make run-hub`.
+
+These also work for each release that is supported by this repo.
+
+### Checking out other releases
+
+Each release has it's own branch, so for example to test the [SysML v2 Release 2020-11](https://github.com/Systems-Modeling/SysML-v2-Release/releases/tag/2020-11), do the following:
+
+```
+git checkout release-2020-11
+make run-hub
+```
+
+That will locally start DockerHub Jupyter image with the 2020-11 release.
 
 ## Production Use?
 
