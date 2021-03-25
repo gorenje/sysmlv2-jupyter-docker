@@ -83,10 +83,11 @@ RUN mkdir notebooks
 COPY --chown=${NB_USER} notebooks/ notebooks/
 
 # Move some top level notebooks to the toplevel
-RUN find . -name \*.ipynb -exec jupyter trust \{\} \;
+RUN mv notebooks/*/StartHere.ipynb .
+RUN mv notebooks/*.ipynb .
 
 ## Trust the notebooks so that the SVG images will be displayed.
-RUN find notebooks/ -name \*.ipynb -exec jupyter trust \{\} \;
+RUN find . -name \*.ipynb -exec jupyter trust \{\} \;
 
 EXPOSE 8888
 ENTRYPOINT jupyter lab --ip sysmljupyter --port 8888
