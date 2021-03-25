@@ -56,7 +56,6 @@ get-notebooks: ## retrieve all notebooks in a standalone running container
 ## Update all test suite notebooks
 .PHONY: update-testsuite
 update-testsuite: ## Update the test suite directory, run `make spin-up` first
-	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') rm -fr notebooks/gorenje/TestSuite
 	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') jupyter nbconvert --execute --inplace --to=notebook notebooks/gorenje/TestSuiteGenerator.ipynb
 	$(MAKE) get-notebooks
 
