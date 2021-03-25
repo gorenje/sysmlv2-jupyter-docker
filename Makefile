@@ -53,6 +53,13 @@ build: build-api build-hub build-mybinder build-jupyter ## build all images
 get-notebooks: ## retrieve all notebooks in a standalone running container
 	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
 
+## Update all test suite notebooks
+.PHONY: update-testsuite
+update-testsuite: ## Update the test suite directory, run `make spin-up` first
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') rm -fr notebooks/gorenje/TestSuite
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') jupyter nbconvert --execute --inplace --to=notebook notebooks/gorenje/TestSuiteGenerator.ipynb
+	$(MAKE) get-notebooks
+
 .PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
