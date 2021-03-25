@@ -81,7 +81,7 @@ RUN rm notebooks/*/StartHere.ipynb
 RUN mv notebooks/*.ipynb .
 
 ## Trust the notebooks so that the SVG images will be displayed.
-RUN find notebooks/ -name \*.ipynb -exec jupyter trust \{\} \;
+RUN find . -name \*.ipynb -exec jupyter trust \{\} \;
 
 ## Copy the start script into the image. This allows us to perform magic
 ## at runtime with out changing this Dockerfile.
