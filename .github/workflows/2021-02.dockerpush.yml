@@ -1,8 +1,8 @@
-name: Push-Main-To-Dockerhub
+name: Push-Release-2021-02-To-Dockerhub
 
 on:
   push:
-    branches: [ main ]
+    branches: [ release-2021-02 ]
 
   workflow_dispatch:
 
@@ -29,7 +29,7 @@ jobs:
           context: .
           file: Dockerfile.hub
           push: true
-          tags: gorenje/sysmlv2-jupyter:latest
+          tags: gorenje/sysmlv2-jupyter:2021-02
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
