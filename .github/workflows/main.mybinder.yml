@@ -1,4 +1,4 @@
-name: Build-Main
+name: Build-Main-Binder
 
 on:
   push:
@@ -18,5 +18,5 @@ jobs:
         with:
           install: true
 
-      - name: Run a one-line script
-        run: make build
+      - name: Build mybinder docker image
+        run: make build-mybinder
