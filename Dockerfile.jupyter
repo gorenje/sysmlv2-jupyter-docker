@@ -9,6 +9,8 @@ FROM openjdk:17-slim
 ## wget is used to retrieve Conda and SysML Release. Inkscape and LaTeX is
 ## required for rendering notebooks as PDFs.
 RUN apt-get --quiet --yes update && apt-get install -yqq \
+  gcc                         \
+  g++                         \
   wget                        \
   inkscape                    \
   texlive-fonts-recommended   \
@@ -69,6 +71,9 @@ RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i install.sh
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
 ENV PATH="${HOME}/conda/bin:${HOME}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+## Install terminal notebook editor - https://github.com/joouha/euporie
+RUN pip install euporie
 
 ## Install SysMLv2 as Jupyter Kernel
 RUN ./install.sh
