@@ -1,5 +1,5 @@
 # SysMLv2 Release to use.
-release = 2021-03
+release = 2021-04
 
 ##
 ## Local setup
