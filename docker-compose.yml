@@ -28,6 +28,8 @@ services:
     ports:
       - "8888:8888"
     restart: always
+    volumes:
+      - "./mydata:/home/sysml/SysML-v2-Release-${RELEASE}/mydata"
 
 networks:
   default:
