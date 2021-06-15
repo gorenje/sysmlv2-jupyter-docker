@@ -127,6 +127,10 @@ This isn't designed for production use, this is for local or trusted use only.
 There are a few example notebooks included in the image, their usefulness
 might vary according to your experience level.
 
+## Creating Your Own Notebooks
+
+There is a "mydata" folder that you can create your own notebooks in. It is tied to your local file system, and thus will persist over time.
+
 ## Inspiration
 
 - [MBSE4U.com](https://mbse4u.com/2020/12/21/sysml-v2-release-whats-inside/) is where I found the meta commands.
