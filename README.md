@@ -40,6 +40,7 @@ Thanks to [Tim Weilkiens](https://github.com/Weilkiti), there is now a dedicated
 
 | [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/) | [binder](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD) | [docker hub](https://hub.docker.com/r/gorenje/sysmlv2-jupyter) |
 |:--|:--|:--|
+| [2021-05](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-05/) | [2021-05](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-05) |  `docker pull gorenje/sysmlv2-jupyter:2021-05` |
 | [2021-04](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-04/) | [2021-04](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-04) |  `docker pull gorenje/sysmlv2-jupyter:2021-04` |
 | [2021-03](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-03/) | [2021-03](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-03) |  `docker pull gorenje/sysmlv2-jupyter:2021-03` |
 | [2021-02](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-02/) | [2021-02](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-02) |  `docker pull gorenje/sysmlv2-jupyter:2021-02` |
@@ -147,7 +148,7 @@ When a new [release tag](https://github.com/Systems-Modeling/SysML-v2-Release/ta
 3. Run `make build` to check that all dockerfiles build locally. Make sure that Docker is running locally.
 4. In a terminal window, run `make spin-up` to start a Jupyter server locally.
 5. In another termainal window, run `make update-testsuite` to update all the test notebooks in the repository. This also retrieves the notebooks from the Docker images and, in the end, there is a commit similar to this [one](https://github.com/gorenje/sysmlv2-jupyter-docker/commit/3597bc3cc1fa2375163b562b02765b4640e3af22).
-6. Create a new branch for the release, something like `release-2021-03` ain't bad :smiley:. On that branch, remove all github actions so that only the one for hte branch is left, i.e. [this commit](https://github.com/gorenje/sysmlv2-jupyter-docker/commit/5bba34afa7817098f8f5f2477cf076c9641d9703).
+6. Create a new branch for the release, something like `release-2021-03` ain't bad :smiley:. On that branch, remove all github actions so that only the one for the branch is left, i.e. [this commit](https://github.com/gorenje/sysmlv2-jupyter-docker/commit/5bba34afa7817098f8f5f2477cf076c9641d9703).
 7. Push main and the new branch to github.
 8. Done.
 
