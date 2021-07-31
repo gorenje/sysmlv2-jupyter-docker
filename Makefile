@@ -1,5 +1,5 @@
 # SysMLv2 Release to use.
-release = 2021-02
+release = 2021-05
 
 ##
 ## Local setup
@@ -52,6 +52,12 @@ build: build-api build-hub build-mybinder build-jupyter ## build all images
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
 	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
+
+## Update all test suite notebooks
+.PHONY: update-testsuite
+update-testsuite: ## Update the test suite directory, run `make spin-up` first
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') jupyter nbconvert --execute --inplace --to=notebook notebooks/gorenje/TestSuiteGenerator.ipynb
+	$(MAKE) get-notebooks
 
 .PHONY: help
 help:

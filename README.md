@@ -40,9 +40,12 @@ Thanks to [Tim Weilkiens](https://github.com/Weilkiti), there is now a dedicated
 
 | [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/) | [binder](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD) | [docker hub](https://hub.docker.com/r/gorenje/sysmlv2-jupyter) |
 |:--|:--|:--|
+| [2021-05](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-05/) | [2021-05](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-05) |  `docker pull gorenje/sysmlv2-jupyter:2021-05` |
+| [2021-04](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-04/) | [2021-04](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-04) |  `docker pull gorenje/sysmlv2-jupyter:2021-04` |
+| [2021-03](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-03/) | [2021-03](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-03) |  `docker pull gorenje/sysmlv2-jupyter:2021-03` |
 | [2021-02](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-02/) | [2021-02](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-02) |  `docker pull gorenje/sysmlv2-jupyter:2021-02` |
 | [2021-01](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2021-01/) | [2021-01](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2021-01) | `docker pull gorenje/sysmlv2-jupyter:2021-01`  |
-|  [2020-12](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-12/) | [2020-12](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-12) |  `docker pull gorenje/sysmlv2-jupyter:2020-12` |
+| [2020-12](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-12/) | [2020-12](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-12) |  `docker pull gorenje/sysmlv2-jupyter:2020-12` |
 | [2020-11](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-11/)  | [2020-11](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-11) |  `docker pull gorenje/sysmlv2-jupyter:2020-11` |
 | [2020-10](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2020-10/) |  [2020-10](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2020-10) | `docker pull gorenje/sysmlv2-jupyter:2020-10` |
 
@@ -125,11 +128,29 @@ This isn't designed for production use, this is for local or trusted use only.
 There are a few example notebooks included in the image, their usefulness
 might vary according to your experience level.
 
+## Creating Your Own Notebooks
+
+There is a "mydata" folder that you can create your own notebooks in. It is tied to your local file system, and thus will persist over time.
+
 ## Inspiration
 
 - [MBSE4U.com](https://mbse4u.com/2020/12/21/sysml-v2-release-whats-inside/) is where I found the meta commands.
 - Also from MBSE4U.com, the example [notebook](https://nbviewer.jupyter.org/github/MBSE4U/SysMLv2JupyterBook/blob/master/SysMLv2JupyterBook.ipynb) at [nbviewer.jupyter.org](https://nbviewer.jupyter.org).
 
+## Building a new Release
+
+When a new [release tag](https://github.com/Systems-Modeling/SysML-v2-Release/tags) becomes available, the following things need doing:
+
+(Since I do this once a month, I thought I might write this up - please ignore)
+
+1. Ensure there is a corresponding [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services/tags) release.
+2. On the main branch, follow this [commit](https://github.com/gorenje/sysmlv2-jupyter-docker/commit/2adf4b3fc24a7184e2e5f26ed9edd2d4ffce0370) to update all dockerfiles & Makefile for the new release (in this case 2021-03). Important is also the addition of the [github action](https://github.com/gorenje/sysmlv2-jupyter-docker/blob/2adf4b3fc24a7184e2e5f26ed9edd2d4ffce0370/.github/workflows/2021-03.dockerpush.yml) for generating a docker image.
+3. Run `make build` to check that all dockerfiles build locally. Make sure that Docker is running locally.
+4. In a terminal window, run `make spin-up` to start a Jupyter server locally.
+5. In another termainal window, run `make update-testsuite` to update all the test notebooks in the repository. This also retrieves the notebooks from the Docker images and, in the end, there is a commit similar to this [one](https://github.com/gorenje/sysmlv2-jupyter-docker/commit/3597bc3cc1fa2375163b562b02765b4640e3af22).
+6. Create a new branch for the release, something like `release-2021-03` ain't bad :smiley:. On that branch, remove all github actions so that only the one for the branch is left, i.e. [this commit](https://github.com/gorenje/sysmlv2-jupyter-docker/commit/5bba34afa7817098f8f5f2477cf076c9641d9703).
+7. Push main and the new branch to github.
+8. Done.
 
 ## Licensing
 
