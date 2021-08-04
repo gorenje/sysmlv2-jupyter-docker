@@ -1,5 +1,5 @@
 # SysMLv2 Release to use.
-release = 2021-05
+release = 2021-06
 
 ##
 ## Local setup
@@ -51,7 +51,7 @@ build: build-api build-hub build-mybinder build-jupyter ## build all images
 
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
-	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xf -
+	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xzf -
 
 ## Update all test suite notebooks
 .PHONY: update-testsuite
