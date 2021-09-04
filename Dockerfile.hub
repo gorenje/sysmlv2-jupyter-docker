@@ -10,7 +10,7 @@ RUN apt-get --quiet --yes update && apt-get install -yqq \
   wget                        \
   inkscape                    \
   texlive-fonts-recommended   \
-  texlive-base \
+  texlive-base                \
   texlive-xetex
 
 ##
