@@ -1,5 +1,6 @@
 # SysMLv2 Release to use.
 release = 2021-08
+sysml_release= 2021-08.1
 
 ##
 ## Local setup
@@ -10,7 +11,7 @@ build-api: ## build the API server docker image
 
 .PHONY: build-jupyter
 build-jupyter: ## build the API+Jupyter Jupyter docker image
-	docker build -t sysml.jupyter:$(release) -f Dockerfile.jupyter --build-arg RELEASE=$(release) .
+	docker build -t sysml.jupyter:$(sysml_release) -f Dockerfile.jupyter --build-arg RELEASE=$(sysml_release) .
 
 .PHONY: create-periphery
 create-periphery: ## Create network and volume for docker-compose
@@ -19,29 +20,29 @@ create-periphery: ## Create network and volume for docker-compose
 
 .PHONY: spin-up
 spin-up: create-periphery build-jupyter build-api ## spin all servers up
-	RELEASE=$(release) docker-compose -f docker-compose.yml up
+	SYSML_RELEASE=$(sysml_release) RELEASE=$(release) docker-compose -f docker-compose.yml up
 
 ##
 ## MyBinder image
 ##
 .PHONY: build-mybinder
 build-mybinder: ## build mybinder Jupyter image
-	docker build -t sysml.mybinder:$(release) -f Dockerfile --build-arg RELEASE=$(release) .
+	docker build -t sysml.mybinder:$(sysml_release) -f Dockerfile --build-arg RELEASE=$(sysml_release) .
 
 .PHONY: run-mybinder
 run-mybinder: build-mybinder # run the mybinder jupyter image
-	docker run -p 8888:8888 -t sysml.mybinder:$(release) jupyter lab --ip 0.0.0.0 --port 8888
+	docker run -p 8888:8888 -t sysml.mybinder:$(sysml_release) jupyter lab --ip 0.0.0.0 --port 8888
 
 ##
 ## Dockerhub image
 ##
 .PHONY: build-hub
 build-hub: ## Build dockerhub image
-	docker build -t gorenje/sysmlv2-jupyter:$(release) -f Dockerfile.hub --build-arg RELEASE=$(release) .
+	docker build -t gorenje/sysmlv2-jupyter:$(sysml_release) -f Dockerfile.hub --build-arg RELEASE=$(sysml_release) .
 
 .PHONY: run-hub
 run-hub: build-hub ## Run dockerhub image
-	docker run -p 8888:8888 -e NO_TOKEN=yes -it gorenje/sysmlv2-jupyter:$(release)
+	docker run -p 8888:8888 -e NO_TOKEN=yes -it gorenje/sysmlv2-jupyter:$(sysml_release)
 
 
 ## Build all
