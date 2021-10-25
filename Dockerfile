@@ -43,12 +43,12 @@ RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.s
 
 ## Defining the RELEASE down here ensures that the previous comamnds can
 ## be recycled since they're not affected by the release version.
-ARG RELEASE=2021-08.1
+ARG RELEASE=2021-09
 
 ##
 ## SysML page: https://github.com/Systems-Modeling/SysML-v2-Release
 ##
-RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz?ts=20211003Z023100+00 -O ${RELEASE}.tar.gz
+RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz?ts=20211025Z023100+00 -O ${RELEASE}.tar.gz
 
 ## Install MiniConda
 RUN chmod 755 ${HOME}/Miniconda3-latest-Linux-x86_64.sh
