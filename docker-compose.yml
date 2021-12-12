@@ -22,14 +22,14 @@ services:
     restart: always
 
   sysmljupyter:
-    image: "sysml.jupyter:${RELEASE}"
+    image: "sysml.jupyter:${SYSML_RELEASE}"
     links:
       - sysmlapiserver
     ports:
       - "8888:8888"
     restart: always
     volumes:
-      - "./mydata:/home/sysml/SysML-v2-Release-${RELEASE}/mydata"
+      - "./mydata:/home/sysml/SysML-v2-Release-${SYSML_RELEASE}/mydata"
 
 networks:
   default:
