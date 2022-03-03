@@ -65,9 +65,6 @@ RUN tar xzf ${RELEASE}.tar.gz
 
 WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/install/jupyter
 
-## Point the publish command to the local API server.
-RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i install.sh
-
 ## This is the path that conda init setups but conda init has no effect
 ## here, so setup the PATH by hand. Else install.sh won't work.
 ENV PATH="${HOME}/conda/bin:${HOME}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -77,6 +74,9 @@ RUN pip install euporie
 
 ## Install SysMLv2 as Jupyter Kernel
 RUN ./install.sh
+
+## Point the publish command to the local API server.
+RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i ${HOME}/conda/share/jupyter/kernels/sysml/kernel.json
 
 WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 
