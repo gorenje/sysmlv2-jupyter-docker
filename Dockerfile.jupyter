@@ -78,6 +78,9 @@ RUN ./install.sh
 ## Point the publish command to the local API server.
 RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i ${HOME}/conda/share/jupyter/kernels/sysml/kernel.json
 
+## Uninstall the terminal feature for security reasons
+RUN pip uninstall -y terminado
+
 WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 
 ## Move any files in the top level directory to the doc directory
