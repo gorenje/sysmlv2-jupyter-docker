@@ -66,6 +66,9 @@ WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/install/jupyter
 ENV PATH="${HOME}/conda/bin:${HOME}/conda/condabin:/usr/local/openjdk-17/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 RUN ./install.sh
 
+## Uninstall the terminal feature for security reasons
+RUN pip uninstall -y terminado
+
 WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 
 ## Move any files in the top level directory to the doc directory
