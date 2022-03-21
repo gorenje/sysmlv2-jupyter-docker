@@ -1,7 +1,7 @@
 # SysMLv2 Release to use. First is release version of the API server, the second is
 # the release version of the SysMLv2
-release = 2022-01
-sysml_release= 2022-01
+release = 2022-02
+sysml_release= 2022-02
 
 ##
 ## Local setup
