@@ -68,6 +68,7 @@ RUN ./install.sh
 
 ## Uninstall the terminal feature for security reasons
 RUN pip uninstall -y terminado
+RUN jupyter kernelspec uninstall python3 -y
 
 WORKDIR ${HOME}/SysML-v2-Release-${RELEASE}/
 

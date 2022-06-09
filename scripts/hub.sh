@@ -17,4 +17,4 @@ echo '{"data":{"layout-restorer:data":{"main":{"dock":{"type":"tab-area","curren
 jupyter lab workspaces import /home/sysml/.jupyter/lab.json
 
 ## Start up Jupyter lab.
-jupyter lab --ip 0.0.0.0 --port 8888 --no-browser
+jupyter lab --ip 0.0.0.0 --port 8888 --no-browser --KernelSpecManager.ensure_native_kernel=False
