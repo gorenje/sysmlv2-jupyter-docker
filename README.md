@@ -40,6 +40,7 @@ Thanks to [Tim Weilkiens](https://github.com/Weilkiti), there is now a dedicated
 
 | [nbviewer](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/main/) | [binder](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/HEAD) | [docker hub](https://hub.docker.com/r/gorenje/sysmlv2-jupyter) |
 |:--|:--|:--|
+| [2022-05](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2022-05/) | [2022-05](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2022-05) |  `docker pull gorenje/sysmlv2-jupyter:2022-05` |
 | [2022-04](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2022-04/) | [2022-04](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2022-04) |  `docker pull gorenje/sysmlv2-jupyter:2022-04` |
 | [2022-03](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2022-03/) | [2022-03](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2022-03) |  `docker pull gorenje/sysmlv2-jupyter:2022-03` |
 | [2022-02](https://nbviewer.jupyter.org/github/gorenje/sysmlv2-jupyter-docker/tree/release-2022-02/) | [2022-02](https://mybinder.org/v2/gh/gorenje/sysmlv2-jupyter-docker/release-2022-02) |  `docker pull gorenje/sysmlv2-jupyter:2022-02` |
