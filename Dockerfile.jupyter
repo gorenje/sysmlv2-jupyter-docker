@@ -2,7 +2,7 @@ FROM openjdk:17-slim
 
 ##
 ## This Dockerfile is specifically designed to be run with the API Server
-## and started via docker-compose. It makes assumptions about the existence
+## and started via docker compose. It makes assumptions about the existence
 ## of an docker internal network.
 ##
 

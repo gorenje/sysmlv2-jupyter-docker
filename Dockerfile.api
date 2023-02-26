@@ -3,7 +3,7 @@ FROM openjdk:11-slim
 ##
 ## This Dockerfile setups the SysML v2 API server and is designed to be
 ## run in conjunction with the Jupyter server. This dockerfile is specifically
-## designed to be run with docker-compose.
+## designed to be run with docker compose.
 ##
 
 RUN apt-get --quiet --yes update && apt-get install -yqq wget
@@ -58,7 +58,7 @@ RUN sed s/key=.whatever./key=\"longersecretnowarnings\"/ -i conf/application.con
 ## need to allow the jupyter server access to the API server
 RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"sysmlapiserver:9000\", \"localhost:9000\"]\n}\n" >> conf/application.conf
 
-## point the image to the postgres that is setup via docker-compose
+## point the image to the postgres that is setup via docker compose
 RUN sed s/localhost:5432/postgresdbserver:5432/ -i conf/META-INF/persistence.xml
 
 ## don't recreate the database if it already exists.

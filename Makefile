@@ -15,13 +15,13 @@ build-jupyter: ## build the API+Jupyter Jupyter docker image
 	docker build -t sysml.jupyter:$(sysml_release) -f Dockerfile.jupyter --build-arg RELEASE=$(sysml_release) .
 
 .PHONY: create-periphery
-create-periphery: ## Create network and volume for docker-compose
+create-periphery: ## Create network and volume for docker compose
 	-docker network create thenetwork
 	docker volume create postgresdbserver
 
 .PHONY: spin-up
 spin-up: create-periphery build-jupyter build-api ## spin all servers up
-	SYSML_RELEASE=$(sysml_release) RELEASE=$(release) docker-compose -f docker-compose.yml up
+	SYSML_RELEASE=$(sysml_release) RELEASE=$(release) docker compose -f docker-compose.yml up
 
 ##
 ## MyBinder image
