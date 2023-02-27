@@ -106,7 +106,7 @@ look at the Makefile. Basically it's something along the lines of:
     docker build -t sysml.api     -f Dockerfile.api     .
     docker network create thenetwork
     docker volume create postgresdbserver
-    docker-compose -f docker-compose.yml up
+    docker compose -f docker-compose.yml up
 
 That is the same as doing ```make spin-up```.
 
