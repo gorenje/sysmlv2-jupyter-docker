@@ -43,11 +43,11 @@ WORKDIR ${HOME}
 ## Miniconda installation page:
 ## https://docs.conda.io/en/latest/miniconda.html#linux-installers
 ##
-RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$(uname -m).sh
 
 ## Defining the RELEASE down here ensures that the previous comamnds can
 ## be recycled since they're not affected by the release version.
-ARG RELEASE=2022-07
+ARG RELEASE=2023-02
 
 ##
 ## SysML page: https://github.com/Systems-Modeling/SysML-v2-Release
@@ -55,9 +55,9 @@ ARG RELEASE=2022-07
 RUN wget -q https://github.com/Systems-Modeling/SysML-v2-Release/archive/${RELEASE}.tar.gz?ts=20220819Z023100+00 -O ${RELEASE}.tar.gz
 
 ## Install MiniConda
-RUN chmod 755 ${HOME}/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod 755 ${HOME}/Miniconda3-latest-Linux-$(uname -m).sh
 RUN mkdir ${HOME}/conda
-RUN ${HOME}/Miniconda3-latest-Linux-x86_64.sh -f -b -p ${HOME}/conda
+RUN ${HOME}/Miniconda3-latest-Linux-$(uname -m).sh -f -b -p ${HOME}/conda
 RUN ${HOME}/conda/condabin/conda init
 
 ## Unpack SysML
