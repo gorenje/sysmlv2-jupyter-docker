@@ -56,6 +56,11 @@ RUN mkdir ${HOME}/conda
 RUN ${HOME}/Miniconda3-latest-Linux-$(uname -m).sh -f -b -p ${HOME}/conda
 RUN ${HOME}/conda/condabin/conda init
 
+## Use a different solver to avoid conda hanging
+RUN ${HOME}/conda/condabin/conda update conda
+RUN ${HOME}/conda/condabin/conda install -n base conda-build conda-libmamba-solver
+RUN ${HOME}/conda/condabin/conda config --set solver libmamba
+
 ## Install SysML
 RUN tar xzf ${RELEASE}.tar.gz
 
