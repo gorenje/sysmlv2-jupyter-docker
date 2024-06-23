@@ -15,7 +15,8 @@ RUN apt-get --quiet --yes update && apt-get install -yqq \
   inkscape                    \
   texlive-fonts-recommended   \
   texlive-base                \
-  texlive-xetex
+  texlive-xetex               \
+  jq
 
 ##
 ## Non-root user is a requirement of Binder:
@@ -81,7 +82,9 @@ RUN pip install euporie
 RUN ./install.sh
 
 ## Point the publish command to the local API server.
-RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i ${HOME}/conda/share/jupyter/kernels/sysml/kernel.json
+# RUN sed s/sysml2.intercax.com:9000/sysmlapiserver:9000/ -i ${HOME}/conda/share/jupyter/kernels/sysml/kernel.json
+ARG SYSML_API_SERVER=http://sysmlapiserver:9000
+RUN jq --arg api_server "${SYSML_API_SERVER}" '.env.ISYSML_API_BASE_PATH = $api_server' ${HOME}/conda/share/jupyter/kernels/sysml/kernel.json > .tmp.kernel.json && mv .tmp.kernel.json ${HOME}/conda/share/jupyter/kernels/sysml/kernel.json
 
 ## Uninstall the terminal feature for security reasons
 RUN pip uninstall -y terminado

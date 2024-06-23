@@ -6,7 +6,7 @@ FROM openjdk:11-slim
 ## designed to be run with docker compose.
 ##
 
-RUN apt-get --quiet --yes update && apt-get install -yqq wget
+RUN apt-get --quiet --yes update && apt-get install -yqq wget xmlstarlet
 
 ##
 ## Use a non-root user for installation
@@ -58,11 +58,14 @@ RUN sed s/key=.whatever./key=\"longersecretnowarnings\"/ -i conf/application.con
 ## need to allow the jupyter server access to the API server
 RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"sysmlapiserver:9000\", \"localhost:9000\"]\n}\n" >> conf/application.conf
 
-## point the image to the postgres that is setup via docker compose
-RUN sed s/localhost:5432/postgresdbserver:5432/ -i conf/META-INF/persistence.xml
-
-## don't recreate the database if it already exists.
-RUN sed s/value=.create-drop./value=\"update\"/ -i conf/META-INF/persistence.xml
+## set the database connection information
+ARG DB_SERVER_URL="jdbc:postgresql://postgresdbserver:5432/sysml2"
+ARG DB_USER="postgres"
+ARG DB_PASSWORD="mysecretpassword"
+RUN xmlstarlet ed --inplace -u '_:persistence/_:persistence-unit/_:properties/_:property[@name="javax.persistence.jdbc.url"]/@value' -v ${DB_SERVER_URL} conf/META-INF/persistence.xml \
+    && xmlstarlet ed --inplace -u '_:persistence/_:persistence-unit/_:properties/_:property[@name="javax.persistence.jdbc.user"]/@value' -v ${DB_USER} conf/META-INF/persistence.xml \
+    && xmlstarlet ed --inplace -u '_:persistence/_:persistence-unit/_:properties/_:property[@name="javax.persistence.jdbc.password"]/@value' -v ${DB_PASSWORD} conf/META-INF/persistence.xml \
+    && xmlstarlet ed --inplace -u '_:persistence/_:persistence-unit/_:properties/_:property[@name="hibernate.hbm2ddl.auto"]/@value' -v "update" conf/META-INF/persistence.xml
 
 EXPOSE 9000
 ENTRYPOINT ${HOME}/sbt/bin/sbt run

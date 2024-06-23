@@ -1,18 +1,28 @@
 # SysMLv2 Release to use. First is release version of the API server, the second is
 # the release version of the SysMLv2
 release = 2024-02
-sysml_release= 2024-02
+sysml_release= 2024-05
+
+
+# Jupyter - API server URL
+SYSML_API_SERVER=http://sysmlapiserver:9000
+
+# API server
+DB_SERVER_URL = 'jdbc:postgresql://postgresdbserver:5432/sysml2'
+DB_USER = 'postgres'
+DB_PASSWORD = 'mysecretpassword'
+
 
 ##
 ## Local setup
 ##
 .PHONY: build-api
 build-api: ## build the API server docker image
-	docker build -t sysml.api:$(release) -f Dockerfile.api --build-arg RELEASE=$(release) .
+	docker build -t sysml.api:$(release) -f Dockerfile.api --build-arg RELEASE=$(release) --build-arg DB_SERVER_URL=$(DB_SERVER_URL) --build-arg DB_USER=$(DB_USER) --build-arg DB_PASSWORD=$(DB_PASSWORD) .
 
 .PHONY: build-jupyter
 build-jupyter: ## build the API+Jupyter Jupyter docker image
-	docker build -t sysml.jupyter:$(sysml_release) -f Dockerfile.jupyter --build-arg RELEASE=$(sysml_release) .
+	docker build -t sysml.jupyter:$(sysml_release) -f Dockerfile.jupyter --build-arg RELEASE=$(sysml_release) --build-arg SYSML_API_SERVER=$(SYSML_API_SERVER) .
 
 .PHONY: create-periphery
 create-periphery: ## Create network and volume for docker compose
