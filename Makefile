@@ -61,6 +61,11 @@ run-hub: build-hub ## Run dockerhub image
 build: build-api build-hub build-mybinder build-jupyter ## build all images
 	echo done
 
+.PHONY: build-latest
+build-latest: build-api build-jupyter
+	docker tag sysml.api:$(release) sysml.api:latest
+	docker tag sysml.jupyter:$(sysml_release) sysml.jupyter:latest
+
 .PHONY: get-notebooks
 get-notebooks: ## retrieve all notebooks in a standalone running container
 	docker exec -i $$(docker ps | grep sysml.jupyter | awk '// { print $$1 }') /bin/bash -c "tar czf - notebooks" | tar xzf -

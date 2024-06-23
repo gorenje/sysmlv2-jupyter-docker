@@ -119,6 +119,12 @@ The Makefile also does the following builds for local usage:
 
 2. `make build-hub` will build the docker hub image. Running this image can be done with `make run-hub`.
 
+3. `make build-api DB_SERVER_URL=<server url> DB_USER=<username in your db> DB_PASSWORD=<your password>` builds the api server for the defined database server.
+
+4. `make build-jupyter SYSML_API_SERVER=<your API server>` builds the jupyter container image for your api server instance.
+
+5. `make build-latest` builds the api server and jupyter server as defined above and labels it as latest. The aformentioned build arguments can be used, too.
+
 These also work for each release that is supported by this repo.
 
 ### Checking out other releases
