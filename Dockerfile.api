@@ -56,8 +56,8 @@ RUN ${HOME}/sbt/bin/sbt compile
 RUN sed s/key=.whatever./key=\"longersecretnowarnings\"/ -i conf/application.conf
 
 ## need to allow the jupyter server access to the API server
-ARG API_SERVER_NAME="sysmlapiserver:9000"
-RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"${API_SERVER_NAME}\", \"localhost:9000\"]\n}\n" >> conf/application.conf
+ARG SYSML_API_SERVER="sysmlapiserver:9000"
+RUN echo "\n\nplay.filters.hosts {\n   allowed = [\"${SYSML_API_SERVER}\", \"localhost:9000\"]\n}\n" >> conf/application.conf
 
 ## set the database connection information
 ARG DB_SERVER_URL="jdbc:postgresql://postgresdbserver:5432/sysml2"
