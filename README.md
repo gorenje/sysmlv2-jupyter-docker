@@ -6,6 +6,12 @@ The setup is taken from the [Jupyter installation](https://github.com/Systems-Mo
 
 In addition, an [API Server](https://github.com/Systems-Modeling/SysML-v2-API-Services) is also started and everything published in Jupyter will be pushed into this server.
 
+## Update - Oct 2024
+
+I [no longer actively](https://github.com/gorenje/sysmlv2-jupyter-docker/issues/19#issuecomment-2193902929) maintain this repository, all my apologises to those frustrated by that. I have no active interest in SysMLv2 and hence doing this for free was counterproductive for me.
+
+Instead I now actively work with [Node-RED](https://nodered.org) which provides a UML-like visual programming interface for (I)IoT development. For those using SysMLv2, Node-RED provides a similar visual interface but with the advantage of code being visual so that the visuals become the code. I have worked on a [Flow2UML](https://flows.nodered.org/node/@gregoriusrippenstein/node-red-contrib-flow2uml) plugin for Node-RED to convert flow based code to UML diagrams. This highlights the similarities between the two.
+
 ## Remote Services
 
 You can try this out on Binder, via DockerHub or just view the notebooks at nbviewer.
