@@ -5,7 +5,7 @@ sysml_release= 2024-05
 
 
 # Jupyter - API server URL
-SYSML_API_SERVER=sysmlapiserver:9000
+SYSML_API_SERVER=http://sysmlapiserver:9000
 
 # API server
 DB_SERVER_URL = 'jdbc:postgresql://postgresdbserver:5432/sysml2'
